@@ -1,0 +1,7 @@
+C:\Repos\FluidCalc\FluidCalc\obj\Debug\FluidCalc.csprojResolveAssemblyReference.cache
+C:\Repos\FluidCalc\FluidCalc\obj\Debug\FluidCalc.csproj.CoreCompileInputs.cache
+C:\Repos\FluidCalc\FluidCalc\bin\Debug\FluidCalc.exe.config
+C:\Repos\FluidCalc\FluidCalc\bin\Debug\FluidCalc.exe
+C:\Repos\FluidCalc\FluidCalc\bin\Debug\FluidCalc.pdb
+C:\Repos\FluidCalc\FluidCalc\obj\Debug\FluidCalc.exe
+C:\Repos\FluidCalc\FluidCalc\obj\Debug\FluidCalc.pdb
