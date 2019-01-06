@@ -46,16 +46,33 @@ namespace FluidCalc
             // main loop
             while (start_iterations < NUM_ITERATIONS)
             {
-                Console.WriteLine(high_value);
-                Console.WriteLine(low_value);
+                // get the lhs, rhs, bisect, and delta
+                var lhs = CalculateLhs(high_value, low_value);
+                var rhs = CalculateRhs(high_value, low_value);
+                var delta = CalculateDelta(high_value, low_value);
+                var bisect = GetBisect(high_value, low_value);
+
+                // I might have this backwards, but for the next iteration
+                // it sets either the high or low value to the bisect.
+                if(delta < 0)
+                {
+                    high_value = bisect;
+                }
+                else
+                {
+                    low_value = bisect;
+                }
+
+                // write them out to the console window
+                Console.WriteLine(" ");
+                Console.WriteLine($"LHS: {lhs}, RHS: {rhs}, Delta: {delta}, Bisect: {bisect}");
+                Console.WriteLine("-----------------------------");
 
                 // don't forget to increment, otherwise you'll get infinite loop
                 start_iterations++;
             }
 
             Console.Read();
-
-            
         }
 
         /************************
@@ -63,16 +80,28 @@ namespace FluidCalc
          * 
          * */
 
-        // the main calculation
-        decimal CalculateFluid(decimal high, decimal low)
+        // the LHS calc
+        static decimal CalculateLhs(decimal high, decimal low)
         {
             // I don't remember what the calculation was, need to put it here.
             // temp calc for now
             return high - low;
         }
 
+        // the RHS calc
+        static decimal CalculateRhs(decimal high, decimal low)
+        {
+            // again, temp calc
+            return high - low;
+        }
+
+        static decimal CalculateDelta(decimal high, decimal low)
+        {
+            return high - low;
+        }
+
         // returns the bisect value
-        decimal GetBisect(decimal high, decimal low)
+        static decimal GetBisect(decimal high, decimal low)
         {
             var total = high + low;
             var answer = total / 2;
