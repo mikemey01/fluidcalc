@@ -10,6 +10,7 @@ namespace FluidCalc
     {
         // this is just the number of times you want to iterate over the calculation
         const int NUM_ITERATIONS  = 50;
+        const int R_VALUE = 4000;
 
         // entry point into the app
         static void Main(string[] args)
@@ -47,14 +48,22 @@ namespace FluidCalc
             while (start_iterations < NUM_ITERATIONS)
             {
                 // get the lhs, rhs, bisect, and delta
-                var lhs = CalculateLhs(high_value, low_value);
-                var rhs = CalculateRhs(high_value, low_value);
-                var delta = CalculateDelta(high_value, low_value);
+                var highLhs = CalculateLhs(high_value);
+                var highRhs = CalculateRhs(high_value);
+                var highDelta = CalculateDelta(highLhs, highRhs);
+
+                var lowLhs = CalculateLhs(low_value);
+                var lowRhs = CalculateRhs(low_value);
+                var lowDelta = CalculateDelta(highRhs, lowRhs);
+
                 var bisect = GetBisect(high_value, low_value);
+                var bisectLhs = CalculateLhs(bisect);
+                var bisectRhs = CalculateRhs(bisect);
+                var bisectDelta = CalculateDelta(bisectLhs, bisectRhs);
 
                 // I might have this backwards, but for the next iteration
                 // it sets either the high or low value to the bisect.
-                if(delta < 0)
+                if(bisectDelta < 0)
                 {
                     high_value = bisect;
                 }
@@ -65,7 +74,9 @@ namespace FluidCalc
 
                 // write them out to the console window
                 Console.WriteLine(" ");
-                Console.WriteLine($"LHS: {lhs}, RHS: {rhs}, Delta: {delta}, Bisect: {bisect}");
+                Console.WriteLine($"HIGH: LHS: {highLhs}, RHS: {highRhs}, Delta: {highDelta}");
+                Console.WriteLine($"LOW: LHS: {lowLhs}, RHS: {lowRhs}, Delta: {lowDelta}");
+                Console.WriteLine($"BISECT: LHS: {bisectLhs}, RHS: {bisectRhs}, Delta: {bisectDelta}");
                 Console.WriteLine("-----------------------------");
 
                 // don't forget to increment, otherwise you'll get infinite loop
@@ -81,23 +92,27 @@ namespace FluidCalc
          * */
 
         // the LHS calc
-        static decimal CalculateLhs(decimal high, decimal low)
+        static decimal CalculateLhs(decimal value)
         {
-            // I don't remember what the calculation was, need to put it here.
-            // temp calc for now
-            return high - low;
+            var dValue = Convert.ToDouble(value);
+            var answer = 1 / Math.Sqrt(dValue);
+
+            return Convert.ToDecimal(answer);
         }
 
         // the RHS calc
-        static decimal CalculateRhs(decimal high, decimal low)
+        static decimal CalculateRhs(decimal value)
         {
-            // again, temp calc
-            return high - low;
+            var dValue = Convert.ToDouble(value);
+
+            var answer = 2 * Math.Log10(((R_VALUE * Math.Sqrt(dValue)) / 2.51));
+
+            return Convert.ToDecimal(answer);
         }
 
-        static decimal CalculateDelta(decimal high, decimal low)
+        static decimal CalculateDelta(decimal left, decimal right)
         {
-            return high - low;
+            return left - right;
         }
 
         // returns the bisect value
